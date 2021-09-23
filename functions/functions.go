@@ -5,39 +5,92 @@ import (
 	"os"
 )
 
-func isPrime(n int) (bool, error) {
-	prime := true
-	if n < 2{
-		return false, fmt.Errorf("%d는(은) 소수가 아닙니다~", n)
+func processDecimal(n1 int, n2 int){
+	if n1 > n2 {
+		temp := n1
+		n1 = n2
+		n2 = temp
 	}
-	for i := 2; i < n; i++ { 
-		if n % i == 0{
-			prime = false
-			break
+	isPrime := true
+	for n := n1; n <= n2; n++{
+		isPrime = true
+		for i := 2; i < n; i++ { 
+			if n % i == 0{
+				isPrime = false
+				break
+			}	
 		}
+		if isPrime {
+			fmt.Printf("%d ", n)
+		}
+		
 	}
-	return prime, nil // true 리턴이면 소수, false 소수 X
 }
 
-// 소수 판정 프로그램 v1.1 : 함수 적용, error 리턴
+// 소수 판정 프로그램 v1.2 : 함수 적용, error 리턴, 구간 적용
 func main() {
-	var number int
+	var number1 int
+	var number2 int
 
 	fmt.Print("정수 입력 : ")
-	_, err := fmt.Scanln(&number)
-
-	p, err := isPrime(number)
+	_, err := fmt.Scanln(&number1, &number2)
 	if err != nil{
 		fmt.Println(err)
 		os.Exit(0)
 	}
-	
-	if p {
-		fmt.Println(number ,"는(은) 소수입니다!")
-	}else {
-		fmt.Println(number ,"는(은) 소수가 아닙니다~")
+	if number1 < 2{
+		fmt.Println(number1 ,"는(은) 소수가 아닙니다~")
+		os.Exit(0)
 	}
+	if number2 < 2{
+		fmt.Println(number2 ,"는(은) 소수가 아닙니다~")
+		os.Exit(0)
+	}
+	
+	processDecimal(number1, number2)
 }
+
+
+// package main
+
+// import (
+// 	"fmt"
+// 	"os"
+// )
+
+// func isPrime(n int) (bool, error) {
+// 	prime := true
+// 	if n < 2{
+// 		return false, fmt.Errorf("%d는(은) 소수가 아닙니다~", n)
+// 	}
+// 	for i := 2; i < n; i++ { 
+// 		if n % i == 0{
+// 			prime = false
+// 			break
+// 		}
+// 	}
+// 	return prime, nil // true 리턴이면 소수, false 소수 X
+// }
+
+// // 소수 판정 프로그램 v1.1 : 함수 적용, error 리턴
+// func main() {
+// 	var number int
+
+// 	fmt.Print("정수 입력 : ")
+// 	_, err := fmt.Scanln(&number)
+
+// 	p, err := isPrime(number)
+// 	if err != nil{
+// 		fmt.Println(err)
+// 		os.Exit(0)
+// 	}
+	
+// 	if p {
+// 		fmt.Println(number ,"는(은) 소수입니다!")
+// 	}else {
+// 		fmt.Println(number ,"는(은) 소수가 아닙니다~")
+// 	}
+// }
 
 // package main
 
