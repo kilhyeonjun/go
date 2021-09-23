@@ -2,43 +2,84 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 )
 
-func isPrime(n int) bool {
+func isPrime(n int) (bool, error) {
 	prime := true
+	if n < 2{
+		return false, fmt.Errorf("%d는(은) 소수가 아닙니다~", n)
+	}
 	for i := 2; i < n; i++ { 
 		if n % i == 0{
 			prime = false
 			break
 		}
 	}
-	return prime // true 리턴이면 소수, false 소수 X
+	return prime, nil // true 리턴이면 소수, false 소수 X
 }
 
-// 소수 판정 프로그램 v1.0 : 함수 적용
+// 소수 판정 프로그램 v1.1 : 함수 적용, error 리턴
 func main() {
 	var number int
 
 	fmt.Print("정수 입력 : ")
 	_, err := fmt.Scanln(&number)
 
+	p, err := isPrime(number)
 	if err != nil{
-		log.Fatal(err)
-	}
-
-	if number < 2{
-		fmt.Println(number ,"는(은) 소수가 아닙니다~")
+		fmt.Println(err)
 		os.Exit(0)
 	}
-
-	if isPrime(number) {
+	
+	if p {
 		fmt.Println(number ,"는(은) 소수입니다!")
 	}else {
 		fmt.Println(number ,"는(은) 소수가 아닙니다~")
 	}
 }
+
+// package main
+
+// import (
+// 	"fmt"
+// 	"log"
+// 	"os"
+// )
+
+// func isPrime(n int) bool {
+// 	prime := true
+// 	for i := 2; i < n; i++ { 
+// 		if n % i == 0{
+// 			prime = false
+// 			break
+// 		}
+// 	}
+// 	return prime // true 리턴이면 소수, false 소수 X
+// }
+
+// // 소수 판정 프로그램 v1.0 : 함수 적용
+// func main() {
+// 	var number int
+
+// 	fmt.Print("정수 입력 : ")
+// 	_, err := fmt.Scanln(&number)
+
+// 	if err != nil{
+// 		log.Fatal(err)
+// 	}
+
+// 	if number < 2{
+// 		fmt.Println(number ,"는(은) 소수가 아닙니다~")
+// 		os.Exit(0)
+// 	}
+
+// 	if isPrime(number) {
+// 		fmt.Println(number ,"는(은) 소수입니다!")
+// 	}else {
+// 		fmt.Println(number ,"는(은) 소수가 아닙니다~")
+// 	}
+// }
 
 // // after (multi return)
 // package main
