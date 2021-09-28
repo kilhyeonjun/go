@@ -2,69 +2,168 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 )
 
-func processDecimal(n1 int, n2 int){
-	if n1 > n2 {
-		temp := n1
-		n1 = n2
-		n2 = temp
+func isPrime(n int) (bool, error) {
+	if n < 2 {
+		return false, fmt.Errorf("%d는(은) 소수가 아닙니다~", n)
 	}
-	isPrime := true
-	for n := n1; n <= n2; n++{
-		isPrime = true
-		for i := 2; i < n; i++ { 
-			if n % i == 0{
-				isPrime = false
-				break
-			}	
+
+	for i := 2; i < n; i++ {
+		if n%i == 0 {
+			return false,nil
 		}
-		if isPrime {
-			fmt.Printf("%d ", n)
-		}
-		
 	}
+	return true, nil // true 리턴이면 소수, false 소수 X
 }
-
-// 소수 판정 프로그램 v1.2 : 함수 적용, error 리턴, 구간 적용
-func main() {
-	var number1 int
-	var number2 int
-
-	fmt.Print("정수 입력 : ")
-	_, err := fmt.Scanln(&number1, &number2)
-	if err != nil{
+func prime(number int){
+	p, err := isPrime(number)
+	if err != nil {
 		fmt.Println(err)
 		os.Exit(0)
 	}
-	if number1 < 2{
-		fmt.Println(number1 ,"는(은) 소수가 아닙니다~")
-		os.Exit(0)
+
+	if p {
+		fmt.Println(number ,"는(은) 소수입니다!")
+	}else {
+		fmt.Println(number ,"는(은) 소수가 아닙니다~")
 	}
-	if number2 < 2{
-		fmt.Println(number2 ,"는(은) 소수가 아닙니다~")
-		os.Exit(0)
-	}
-	
-	processDecimal(number1, number2)
 }
 
+func primeRange(a int, b int){
+	if a>b {
+		temp := a
+		a =b
+		b =temp
+	}
+	for i := a; i<=b; i++{
+		p, err := isPrime(i)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(0)
+		}
+		if p{
+			fmt.Print(i, " ")
+		}else {
+			fmt.Println( "는(은) 소수가 아닙니다~")
+		}
+	}
+}
+// 소수 판정 프로그램 v1.1 : isPrime 함수 안으 변수를 하나 줄이고 retirn 구문 추가, break 제거
+func main() {
+	var menu int;
+
+	for true{
+		fmt.Print("MENU : 1) 소수판정 2) 구간 소수판정 : ")
+		_, err := fmt.Scanln(&menu)
+	
+		if  err != nil{
+			log.Fatal(err)
+		}
+
+		switch menu{
+			case 1:
+				var in int;
+				fmt.Print("정수입력 : ")
+				_, err := fmt.Scanln(&in)
+
+				if  err != nil{
+					log.Fatal(err)
+				}
+				prime(in)
+			case 2:
+				var n1, n2 int;
+				fmt.Print("정수 2개 입력 : ")
+				_, err := fmt.Scanln(&n1, &n2)
+		
+				if err != nil{
+					log.Fatal(err)
+				}
+				primeRange(n1, n2)
+			default:
+				fmt.Print("프로그램을 종료합니다")
+				os.Exit(0)
+		}
+	
+	}
+	
+
+
+
+
+
+	
+}// package main
+
+// import (
+// 	"fmt"
+// 	"log"
+// 	"os"
+// )
+
+// func isPrime(n int) (bool, error) {
+
+// 	if n < 2 {
+// 		return false, fmt.Errorf("%d는(은) 소수가 아닙니다~", n)
+// 	}
+
+// 	for i := 2; i < n; i++ {
+// 		if n%i == 0 {
+// 			return false,nil
+// 		}
+// 	}
+// 	return true, nil // true 리턴이면 소수, false 소수 X
+// }
+
+// // 소수 판정 프로그램 v1.1 : isPrime 함수 안으 변수를 하나 줄이고 retirn 구문 추가, break 제거
+// func main() {
+// 	var a,b int
+
+// 	fmt.Print("정수 입력 : ")
+// 	_, err := fmt.Scanln(&a, &b)
+
+// 	if  err != nil{
+// 		log.Fatal(err)
+// 	}
+
+	// if a>b {
+	// 	temp := a
+	// 	a =b
+	// 	b =temp
+	// }
+
+// 	for i := a; i<=b; i++{
+
+		// p, err := isPrime(i)
+		// if err != nil {
+		// 	fmt.Println(err)
+		// 	os.Exit(0)
+		// }
+// 		if p{
+// 			fmt.Print(i, " ")
+// 		}
+// 	}
+
+	
+// }
 
 // package main
 
 // import (
 // 	"fmt"
+// 	"log"
 // 	"os"
 // )
 
 // func isPrime(n int) (bool, error) {
 // 	prime := true
-// 	if n < 2{
+// 	if n < 2 {
 // 		return false, fmt.Errorf("%d는(은) 소수가 아닙니다~", n)
 // 	}
-// 	for i := 2; i < n; i++ { 
-// 		if n % i == 0{
+// 	for i := 2; i < n; i++ {
+// 		if n%i == 0 {
 // 			prime = false
 // 			break
 // 		}
@@ -74,22 +173,34 @@ func main() {
 
 // // 소수 판정 프로그램 v1.1 : 함수 적용, error 리턴
 // func main() {
-// 	var number int
+// 	var a,b int
 
 // 	fmt.Print("정수 입력 : ")
-// 	_, err := fmt.Scanln(&number)
+// 	_, err := fmt.Scanln(&a, &b)
 
-// 	p, err := isPrime(number)
-// 	if err != nil{
-// 		fmt.Println(err)
-// 		os.Exit(0)
+// 	if  err != nil{
+// 		log.Fatal(err)
 // 	}
+
+// 	if a>b {
+// 		temp := a
+// 		a =b
+// 		b =temp
+// 	}
+
+// 	for i := a; i<=b; i++{
+
+// 		p, err := isPrime(i)
+// 		if err != nil {
+// 			fmt.Println(err)
+// 			os.Exit(0)
+// 		}
+// 		if p{
+// 			fmt.Print(i, " ")
+// 		}
+// 	}
+
 	
-// 	if p {
-// 		fmt.Println(number ,"는(은) 소수입니다!")
-// 	}else {
-// 		fmt.Println(number ,"는(은) 소수가 아닙니다~")
-// 	}
 // }
 
 // package main
@@ -102,7 +213,7 @@ func main() {
 
 // func isPrime(n int) bool {
 // 	prime := true
-// 	for i := 2; i < n; i++ { 
+// 	for i := 2; i < n; i++ {
 // 		if n % i == 0{
 // 			prime = false
 // 			break
@@ -127,11 +238,11 @@ func main() {
 // 		os.Exit(0)
 // 	}
 
-// 	if isPrime(number) {
-// 		fmt.Println(number ,"는(은) 소수입니다!")
-// 	}else {
-// 		fmt.Println(number ,"는(은) 소수가 아닙니다~")
-// 	}
+	// if isPrime(number) {
+	// 	fmt.Println(number ,"는(은) 소수입니다!")
+	// }else {
+	// 	fmt.Println(number ,"는(은) 소수가 아닙니다~")
+	// }
 // }
 
 // // after (multi return)
@@ -155,7 +266,7 @@ func main() {
 // 	fmt.Printf("%s의 총점은 %d점, 평균은 %d점 입니다.\n", "홍길동", t, a)
 
 // 	t, a =processScore(89, 91, 92)
-// 	fmt.Printf("%s의 총점은 %d점, 평균은 %d점 입니다.\n", "홍길동", t, a)	
+// 	fmt.Printf("%s의 총점은 %d점, 평균은 %d점 입니다.\n", "홍길동", t, a)
 // }
 
 // // after
