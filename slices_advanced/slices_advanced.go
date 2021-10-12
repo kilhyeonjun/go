@@ -18,14 +18,14 @@ func LoadFloats(fn string) ([]float64, error) {
 	for scanner.Scan() {
 		number, err := strconv.ParseFloat(scanner.Text(), 64)
 		if err != nil {
-			return numbers, err
+			return nil, err
 		}
 		numbers = append(numbers, number)
 		// fmt.Println(scanner.Text())
 	}
 	err = fs.Close()
 	if err != nil {
-		return numbers, err
+		return nil, err
 	}
 	if scanner.Err() != nil {
 		return numbers, scanner.Err()
