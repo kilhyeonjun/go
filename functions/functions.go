@@ -13,12 +13,13 @@ func isPrime(n int) (bool, error) {
 
 	for i := 2; i < n; i++ {
 		if n%i == 0 {
-			return false,nil
+			return false, nil
 		}
 	}
 	return true, nil // true 리턴이면 소수, false 소수 X
 }
-func prime(number int){
+
+func prime(number int) {
 	p, err := isPrime(number)
 	if err != nil {
 		fmt.Println(err)
@@ -26,76 +27,67 @@ func prime(number int){
 	}
 
 	if p {
-		fmt.Println(number ,"는(은) 소수입니다!")
-	}else {
-		fmt.Println(number ,"는(은) 소수가 아닙니다~")
+		fmt.Println(number, "는(은) 소수입니다!")
+	} else {
+		fmt.Println(number, "는(은) 소수가 아닙니다~")
 	}
 }
 
-func primeRange(a int, b int){
-	if a>b {
+func primeRange(a int, b int) {
+	if a > b {
 		temp := a
-		a =b
-		b =temp
+		a = b
+		b = temp
 	}
-	for i := a; i<=b; i++{
+	for i := a; i <= b; i++ {
 		p, err := isPrime(i)
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(0)
 		}
-		if p{
+		if p {
 			fmt.Print(i, " ")
-		}else {
-			fmt.Println( "는(은) 소수가 아닙니다~")
+		} else {
+			fmt.Println("는(은) 소수가 아닙니다~")
 		}
 	}
 }
+
 // 소수 판정 프로그램 v1.1 : isPrime 함수 안으 변수를 하나 줄이고 retirn 구문 추가, break 제거
 func main() {
-	var menu int;
+	var menu int
 
-	for true{
+	for true {
 		fmt.Print("MENU : 1) 소수판정 2) 구간 소수판정 : ")
 		_, err := fmt.Scanln(&menu)
-	
-		if  err != nil{
+		if err != nil {
 			log.Fatal(err)
 		}
 
-		switch menu{
-			case 1:
-				var in int;
-				fmt.Print("정수입력 : ")
-				_, err := fmt.Scanln(&in)
-
-				if  err != nil{
-					log.Fatal(err)
-				}
-				prime(in)
-			case 2:
-				var n1, n2 int;
-				fmt.Print("정수 2개 입력 : ")
-				_, err := fmt.Scanln(&n1, &n2)
-		
-				if err != nil{
-					log.Fatal(err)
-				}
-				primeRange(n1, n2)
-			default:
-				fmt.Print("프로그램을 종료합니다")
-				os.Exit(0)
+		switch menu {
+		case 1:
+			var in int
+			fmt.Print("정수입력 : ")
+			_, err := fmt.Scanln(&in)
+			if err != nil {
+				log.Fatal(err)
+			}
+			prime(in)
+		case 2:
+			var n1, n2 int
+			fmt.Print("정수 2개 입력 : ")
+			_, err := fmt.Scanln(&n1, &n2)
+			if err != nil {
+				log.Fatal(err)
+			}
+			primeRange(n1, n2)
+		default:
+			fmt.Print("프로그램을 종료합니다")
+			os.Exit(0)
 		}
-	
+
 	}
-	
-
-
-
-
-
-	
-}// package main
+} // package main
 
 // import (
 // 	"fmt"
@@ -128,25 +120,24 @@ func main() {
 // 		log.Fatal(err)
 // 	}
 
-	// if a>b {
-	// 	temp := a
-	// 	a =b
-	// 	b =temp
-	// }
+// if a>b {
+// 	temp := a
+// 	a =b
+// 	b =temp
+// }
 
 // 	for i := a; i<=b; i++{
 
-		// p, err := isPrime(i)
-		// if err != nil {
-		// 	fmt.Println(err)
-		// 	os.Exit(0)
-		// }
+// p, err := isPrime(i)
+// if err != nil {
+// 	fmt.Println(err)
+// 	os.Exit(0)
+// }
 // 		if p{
 // 			fmt.Print(i, " ")
 // 		}
 // 	}
 
-	
 // }
 
 // package main
@@ -200,7 +191,6 @@ func main() {
 // 		}
 // 	}
 
-	
 // }
 
 // package main
@@ -238,11 +228,11 @@ func main() {
 // 		os.Exit(0)
 // 	}
 
-	// if isPrime(number) {
-	// 	fmt.Println(number ,"는(은) 소수입니다!")
-	// }else {
-	// 	fmt.Println(number ,"는(은) 소수가 아닙니다~")
-	// }
+// if isPrime(number) {
+// 	fmt.Println(number ,"는(은) 소수입니다!")
+// }else {
+// 	fmt.Println(number ,"는(은) 소수가 아닙니다~")
+// }
 // }
 
 // // after (multi return)
